@@ -1,0 +1,10 @@
+{"level":"info","ts":"2023-10-17T02:46:06.391+0400","caller":"apiserver/apiserver.go:48","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T02:47:12.271+0400","caller":"apiserver/apiserver.go:48","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T02:48:00.730+0400","caller":"apiserver/apiserver.go:48","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T02:48:02.508+0400","caller":"apiserver/apiserver.go:48","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T02:48:30.185+0400","caller":"apiserver/apiserver.go:48","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T02:50:31.491+0400","caller":"apiserver/apiserver.go:48","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T02:56:23.984+0400","caller":"apiserver/apiserver.go:60","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T03:04:40.362+0400","caller":"apiserver/apiserver.go:67","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T03:05:49.974+0400","caller":"apiserver/apiserver.go:67","msg":"starting api server"}
+{"level":"info","ts":"2023-10-17T03:09:12.999+0400","caller":"apiserver/apiserver.go:67","msg":"starting api server"}
