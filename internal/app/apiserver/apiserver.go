@@ -5,26 +5,58 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/artemiyKew/http-rest-api/internal/app/store"
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
-type ApiServer struct {
+// APIServer ...
+type APIServer struct {
 	config *Config
 	logger *zap.Logger
 	router *mux.Router
+	store  *store.Store
 }
 
-func New(config *Config) *ApiServer {
-	return &ApiServer{
+// New ...
+func New(config *Config) *APIServer {
+	return &APIServer{
 		config: config,
 		logger: zap.NewNop(),
 		router: mux.NewRouter(),
 	}
 }
 
-func (s *ApiServer) configureLogger() error {
+// Start ...
+func (s *APIServer) Start() error {
+	if err := s.configureLogger(); err != nil {
+		return err
+	}
+
+	s.configureRouter()
+
+	if err := s.configureStore(); err != nil {
+		s.logger.Fatal(err.Error())
+		return err
+	}
+
+	s.logger.Info("starting api server")
+	return http.ListenAndServe(s.config.BindAddr, s.router)
+}
+
+func (s *APIServer) configureStore() error {
+	st := store.New(s.config.Store)
+	if err := st.Open(); err != nil {
+		return err
+	}
+
+	s.store = st
+
+	return nil
+}
+
+func (s *APIServer) configureLogger() error {
 	filename := "logs.log"
 	config := zap.NewProductionEncoderConfig()
 	config.EncodeTime = zapcore.ISO8601TimeEncoder
@@ -57,22 +89,11 @@ func (s *ApiServer) configureLogger() error {
 	return nil
 }
 
-func (s *ApiServer) Start() error {
-	if err := s.configureLogger(); err != nil {
-		return err
-	}
-
-	s.configureRouter()
-
-	s.logger.Info("starting api server")
-	return http.ListenAndServe(s.config.BindAddr, s.router)
-}
-
-func (s *ApiServer) configureRouter() {
+func (s *APIServer) configureRouter() {
 	s.router.HandleFunc("/hello", s.handleHello())
 }
 
-func (s *ApiServer) handleHello() http.HandlerFunc {
+func (s *APIServer) handleHello() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "Hello")
 	}
