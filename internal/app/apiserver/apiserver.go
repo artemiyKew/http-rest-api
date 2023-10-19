@@ -75,7 +75,7 @@ func (s *APIServer) configureLogger() error {
 	consoleWriter := zapcore.AddSync(os.Stdout)
 
 	// Set the log level
-	defaultLogLevel := zapcore.DebugLevel
+	defaultLogLevel := zapcore.InfoLevel
 
 	// Create cores for writing to the file and console
 	fileCore := zapcore.NewCore(fileEncoder, fileWriter, defaultLogLevel)
