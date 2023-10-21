@@ -1,15 +1,12 @@
 package apiserver
 
-import "github.com/artemiyKew/http-rest-api/internal/app/store"
-
 type Config struct {
-	BindAddr string `toml:"bind_addr"`
-	Store    *store.Config
+	BindAddr    string `toml:"bind_addr"`
+	DatabaseURL string `toml:"database_url"`
 }
 
 func NewConfig() *Config {
 	return &Config{
 		BindAddr: ":8080",
-		Store:    store.NewConfig(),
 	}
 }
