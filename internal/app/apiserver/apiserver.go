@@ -1,62 +1,40 @@
 package apiserver
 
 import (
-	"io"
+	"database/sql"
 	"net/http"
 	"os"
 
-	"github.com/artemiyKew/http-rest-api/internal/app/store"
-	"github.com/gorilla/mux"
+	sqlstore "github.com/artemiyKew/http-rest-api/internal/app/store/SQLStore"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
-// APIServer ...
-type APIServer struct {
-	config *Config
-	logger *zap.Logger
-	router *mux.Router
-	store  *store.Store
-}
-
-// New ...
-func New(config *Config) *APIServer {
-	return &APIServer{
-		config: config,
-		logger: zap.NewNop(),
-		router: mux.NewRouter(),
-	}
-}
-
-// Start ...
-func (s *APIServer) Start() error {
-	if err := s.configureLogger(); err != nil {
+func Start(config *Config) error {
+	db, err := newDB(config.DatabaseURL)
+	if err != nil {
 		return err
 	}
 
-	s.configureRouter()
-
-	if err := s.configureStore(); err != nil {
-		s.logger.Fatal(err.Error())
-		return err
-	}
-
-	s.logger.Info("starting api server")
-	return http.ListenAndServe(s.config.BindAddr, s.router)
+	defer db.Close()
+	store := sqlstore.New(db)
+	srv := newServer(store)
+	return http.ListenAndServe(config.BindAddr, srv)
 }
 
-func (s *APIServer) configureStore() error {
-	st := store.New(s.config.Store)
-	if err := st.Open(); err != nil {
-		return err
+func newDB(databaseURL string) (*sql.DB, error) {
+	db, err := sql.Open("postgres", databaseURL)
+	if err != nil {
+		return nil, err
 	}
 
-	s.store = st
-
-	return nil
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+	return db, nil
 }
 
-func (s *APIServer) configureLogger() error {
+func configureLogger() error {
 	filename := "logs.log"
 	config := zap.NewProductionEncoderConfig()
 	config.EncodeTime = zapcore.ISO8601TimeEncoder
@@ -85,16 +63,6 @@ func (s *APIServer) configureLogger() error {
 	core := zapcore.NewTee(fileCore, consoleCore)
 	logger := zap.New(core, zap.AddCaller(), zap.AddStacktrace(zapcore.ErrorLevel))
 
-	s.logger = logger
+	_ = logger
 	return nil
-}
-
-func (s *APIServer) configureRouter() {
-	s.router.HandleFunc("/hello", s.handleHello())
-}
-
-func (s *APIServer) handleHello() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, "Hello")
-	}
 }
