@@ -42,6 +42,7 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (s *server) configureRouter() {
 	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
+	s.router.HandleFunc("/user", s.handleUserData()).Methods("Get")
 }
 
 func (s *server) handleUsersCreate() http.HandlerFunc {
@@ -103,6 +104,28 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 		}
 
 		s.respond(w, r, http.StatusOK, nil)
+	}
+}
+
+func (s *server) handleUserData() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		session, err := s.sessionStore.Get(r, sessionName)
+		if err != nil {
+			if err == http.ErrNoCookie {
+				s.error(w, r, http.StatusUnauthorized, err)
+				return
+			}
+			s.error(w, r, http.StatusBadRequest, err)
+			return
+		}
+
+		auth, ok := session.Values["user_id"].(int)
+		if !ok {
+			s.error(w, r, http.StatusForbidden, err)
+			return
+		}
+
+		s.respond(w, r, http.StatusOK, auth)
 	}
 }
 
