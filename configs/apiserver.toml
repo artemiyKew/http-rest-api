@@ -1,2 +1,3 @@
-bind_addr = ":8080"
+bind_addr = ":1234"
 database_url = "host=localhost port=5432 user=artemiy dbname=restapi_dev sslmode=disable"
+session_key = "lyOntrKci7MZLSjrbRQ0sm92EV6xL1i7"
