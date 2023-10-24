@@ -1,7 +1,9 @@
 package apiserver
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/artemiyKew/http-rest-api/internal/app/model"
@@ -12,8 +14,15 @@ import (
 )
 
 const (
-	sessionName = "artemiyKew"
+	sessionName        = "artemiyKew"
+	ctxKeyUser  ctxKey = iota
 )
+
+var (
+	errNotAuthenticated = errors.New("not authenticated")
+)
+
+type ctxKey int8
 
 type server struct {
 	router       *mux.Router
@@ -42,7 +51,34 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (s *server) configureRouter() {
 	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
-	s.router.HandleFunc("/user", s.handleUserData()).Methods("Get")
+
+	private := s.router.PathPrefix("/private").Subrouter()
+	private.Use(s.authUser)
+	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
+}
+
+func (s *server) authUser(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		session, err := s.sessionStore.Get(r, sessionName)
+		if err != nil {
+			s.error(w, r, http.StatusInternalServerError, err)
+			return
+		}
+
+		id, ok := session.Values["user_id"]
+		if !ok {
+			s.error(w, r, http.StatusUnauthorized, errNotAuthenticated)
+			return
+		}
+
+		u, err := s.store.User().FindByID(id.(int))
+		if err != nil {
+			s.error(w, r, http.StatusUnauthorized, errNotAuthenticated)
+			return
+		}
+
+		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), ctxKeyUser, u)))
+	})
 }
 
 func (s *server) handleUsersCreate() http.HandlerFunc {
@@ -107,25 +143,9 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 	}
 }
 
-func (s *server) handleUserData() http.HandlerFunc {
+func (s *server) handleWhoami() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		session, err := s.sessionStore.Get(r, sessionName)
-		if err != nil {
-			if err == http.ErrNoCookie {
-				s.error(w, r, http.StatusUnauthorized, err)
-				return
-			}
-			s.error(w, r, http.StatusBadRequest, err)
-			return
-		}
-
-		auth, ok := session.Values["user_id"].(int)
-		if !ok {
-			s.error(w, r, http.StatusForbidden, err)
-			return
-		}
-
-		s.respond(w, r, http.StatusOK, auth)
+		s.respond(w, r, http.StatusOK, r.Context().Value(ctxKeyUser).(*model.User))
 	}
 }
 

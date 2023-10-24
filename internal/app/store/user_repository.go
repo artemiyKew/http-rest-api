@@ -6,4 +6,5 @@ import "github.com/artemiyKew/http-rest-api/internal/app/model"
 type UserRepository interface {
 	Create(*model.User) error
 	FindByEmail(string) (*model.User, error)
+	FindByID(int) (*model.User, error)
 }
