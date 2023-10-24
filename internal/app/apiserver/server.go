@@ -4,10 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/artemiyKew/http-rest-api/internal/app/model"
 	"github.com/artemiyKew/http-rest-api/internal/app/store"
+	"github.com/google/uuid"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 	"go.uber.org/zap"
@@ -16,6 +20,7 @@ import (
 const (
 	sessionName        = "artemiyKew"
 	ctxKeyUser  ctxKey = iota
+	ctxKeyRequestID
 )
 
 var (
@@ -49,12 +54,45 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) configureRouter() {
+	s.router.Use(s.setRequestID)
+	s.router.Use(s.logRequest)
+	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"*"})))
+
 	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
 
 	private := s.router.PathPrefix("/private").Subrouter()
 	private.Use(s.authUser)
 	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
+}
+
+func (s *server) logRequest(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		logger := s.logger
+		msg := fmt.Sprintf("remote_addr=%s request_id=%s", r.RemoteAddr, r.Context().
+			Value(ctxKeyRequestID))
+		logger.Sugar().Infof(fmt.Sprintf("started %s %s \t %s", r.Method, r.RequestURI, msg))
+
+		start := time.Now()
+
+		rw := &responseWriter{w, http.StatusOK}
+
+		next.ServeHTTP(rw, r)
+		logger.Sugar().Infof(fmt.Sprintf("completed with %d % s in %v \t %s",
+			rw.code,
+			http.StatusText(rw.code),
+			time.Since(start),
+			msg),
+		)
+	})
+}
+
+func (s *server) setRequestID(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		id := uuid.New().String()
+		w.Header().Set("X-Request-ID", id)
+		next.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), ctxKeyRequestID, id)))
+	})
 }
 
 func (s *server) authUser(next http.Handler) http.Handler {
@@ -159,36 +197,3 @@ func (s *server) respond(w http.ResponseWriter, r *http.Request, code int, data 
 		json.NewEncoder(w).Encode(data)
 	}
 }
-
-// func (s *server) configureLogger() error {
-// 	filename := "logs.log"
-// 	config := zap.NewProductionEncoderConfig()
-// 	config.EncodeTime = zapcore.ISO8601TimeEncoder
-
-// 	// Create file and console encoders
-// 	fileEncoder := zapcore.NewJSONEncoder(config)
-// 	consoleEncoder := zapcore.NewConsoleEncoder(config)
-
-// 	logFile, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	// Create writers for file and console
-// 	fileWriter := zapcore.AddSync(logFile)
-// 	consoleWriter := zapcore.AddSync(os.Stdout)
-
-// 	// Set the log level
-// 	defaultLogLevel := zapcore.InfoLevel
-
-// 	// Create cores for writing to the file and console
-// 	fileCore := zapcore.NewCore(fileEncoder, fileWriter, defaultLogLevel)
-// 	consoleCore := zapcore.NewCore(consoleEncoder, consoleWriter, defaultLogLevel)
-
-// 	// Combine cores
-// 	core := zapcore.NewTee(fileCore, consoleCore)
-// 	logger := zap.New(core, zap.AddCaller(), zap.AddStacktrace(zapcore.ErrorLevel))
-
-// 	s.logger = logger
-// 	return nil
-// }

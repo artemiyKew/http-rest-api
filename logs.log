@@ -20,3 +20,19 @@
 {"level":"fatal","ts":"2023-10-18T23:38:49.409+0400","caller":"apiserver/apiserver.go:40","msg":"pq: database \"restapi_dev\" does not exist","stacktrace":"github.com/artemiyKew/http-rest-api/internal/app/apiserver.(*APIServer).Start\n\t/Users/artemiy/github.com/http-rest-api/internal/app/apiserver/apiserver.go:40\nmain.main\n\t/Users/artemiy/github.com/http-rest-api/cmd/apiserver/main.go:29\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:267"}
 {"level":"info","ts":"2023-10-18T23:41:21.571+0400","caller":"apiserver/apiserver.go:44","msg":"starting api server"}
 {"level":"info","ts":"2023-10-19T14:56:21.764+0400","caller":"apiserver/apiserver.go:44","msg":"starting api server"}
+{"level":"info","ts":"2023-10-25T00:20:33.663+0400","caller":"apiserver/server.go:72","msg":"started GET /private/whoami"}
+{"level":"info","ts":"2023-10-25T00:20:33.663+0400","caller":"apiserver/server.go:73","msg":"remote_add=[::1]:59478 request_id=80f1c1ec-81bc-4ade-be0a-fa88f8657c57"}
+{"level":"info","ts":"2023-10-25T00:20:33.665+0400","caller":"apiserver/server.go:79","msg":"completed in 1.690708ms"}
+{"level":"info","ts":"2023-10-25T00:21:01.811+0400","caller":"apiserver/server.go:72","msg":"started GET /private/whoami"}
+{"level":"info","ts":"2023-10-25T00:21:01.811+0400","caller":"apiserver/server.go:73","msg":"remote_add=[::1]:59483 request_id=20b315f5-73ca-44bb-a7c6-1b77f39cebf0"}
+{"level":"info","ts":"2023-10-25T00:21:01.812+0400","caller":"apiserver/server.go:79","msg":"completed in 567.959µs"}
+{"level":"info","ts":"2023-10-25T00:22:41.653+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59512 request_id=48e215e0-2020-477f-b246-9b92c93e82ee"}
+{"level":"info","ts":"2023-10-25T00:22:41.655+0400","caller":"apiserver/server.go:79","msg":"completed in 1.657292ms \t remote_addr=[::1]:59512 request_id=48e215e0-2020-477f-b246-9b92c93e82ee"}
+{"level":"info","ts":"2023-10-25T00:23:11.617+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59522 request_id=d2b74494-da93-4432-835b-36cc4b334733"}
+{"level":"info","ts":"2023-10-25T00:23:11.617+0400","caller":"apiserver/server.go:79","msg":"completed in 594.25µs \t remote_addr=[::1]:59522 request_id=d2b74494-da93-4432-835b-36cc4b334733"}
+{"level":"info","ts":"2023-10-25T00:24:25.580+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59544 request_id=4303813b-35fc-4d56-92a9-a33053eac5f1"}
+{"level":"info","ts":"2023-10-25T00:24:25.582+0400","caller":"apiserver/server.go:79","msg":"completed in 1.925958ms \t remote_addr=[::1]:59544 request_id=4303813b-35fc-4d56-92a9-a33053eac5f1"}
+{"level":"info","ts":"2023-10-25T00:31:54.058+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59643 request_id=49bbb389-5cea-4bb9-a4ee-2fd1afc3e7cd"}
+{"level":"info","ts":"2023-10-25T00:31:54.060+0400","caller":"apiserver/server.go:81","msg":"completed with 200 OK in 1.667583ms \t remote_addr=[::1]:59643 request_id=49bbb389-5cea-4bb9-a4ee-2fd1afc3e7cd"}
+{"level":"info","ts":"2023-10-25T00:32:29.469+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59654 request_id=1e8725c3-82e9-4e1c-a38c-4e6c10eea692"}
+{"level":"info","ts":"2023-10-25T00:32:29.469+0400","caller":"apiserver/server.go:81","msg":"completed with 401 Unauthorized in 37.25µs \t remote_addr=[::1]:59654 request_id=1e8725c3-82e9-4e1c-a38c-4e6c10eea692"}
