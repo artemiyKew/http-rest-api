@@ -10,6 +10,7 @@ import (
 
 	"github.com/artemiyKew/http-rest-api/internal/app/model"
 	"github.com/artemiyKew/http-rest-api/internal/app/store"
+	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -18,13 +19,16 @@ import (
 )
 
 const (
-	sessionName        = "artemiyKew"
-	ctxKeyUser  ctxKey = iota
+	ctxKeyUser ctxKey = iota
 	ctxKeyRequestID
 )
 
 var (
+	jwtKey              = []byte("secret-key")
 	errNotAuthenticated = errors.New("not authenticated")
+	errNotFoundHeader   = errors.New("header not found")
+	errInvalidToken     = errors.New("invalid token")
+	errTokenExpired     = errors.New("token expired")
 )
 
 type ctxKey int8
@@ -71,14 +75,14 @@ func (s *server) logRequest(next http.Handler) http.Handler {
 		logger := s.logger
 		msg := fmt.Sprintf("remote_addr=%s request_id=%s", r.RemoteAddr, r.Context().
 			Value(ctxKeyRequestID))
-		logger.Sugar().Infof(fmt.Sprintf("started %s %s \t %s", r.Method, r.RequestURI, msg))
+		logger.Info(fmt.Sprintf("started %s %s \t %s", r.Method, r.RequestURI, msg))
 
 		start := time.Now()
 
 		rw := &responseWriter{w, http.StatusOK}
 
 		next.ServeHTTP(rw, r)
-		logger.Sugar().Infof(fmt.Sprintf("completed with %d % s in %v \t %s",
+		logger.Info(fmt.Sprintf("completed with %d % s in %v \t %s",
 			rw.code,
 			http.StatusText(rw.code),
 			time.Since(start),
@@ -97,21 +101,24 @@ func (s *server) setRequestID(next http.Handler) http.Handler {
 
 func (s *server) authUser(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		session, err := s.sessionStore.Get(r, sessionName)
+		token, err := s.validateToken(w, r)
 		if err != nil {
 			s.error(w, r, http.StatusInternalServerError, err)
-			return
 		}
 
-		id, ok := session.Values["user_id"]
+		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
-			s.error(w, r, http.StatusUnauthorized, errNotAuthenticated)
+			s.error(w, r, http.StatusInternalServerError, errors.New("cannot parse data"))
 			return
 		}
-
-		u, err := s.store.User().FindByID(id.(int))
+		exp := claims["exp"].(float64)
+		if int64(exp) < time.Now().Local().Unix() {
+			s.error(w, r, http.StatusInternalServerError, errTokenExpired)
+			return
+		}
+		u, err := s.store.User().FindByID(int(claims["sub"].(float64)))
 		if err != nil {
-			s.error(w, r, http.StatusUnauthorized, errNotAuthenticated)
+			s.error(w, r, http.StatusInternalServerError, err)
 			return
 		}
 
@@ -153,6 +160,7 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		// TODO переписать с cookie на jwt токен
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			s.error(w, r, http.StatusBadRequest, err)
@@ -165,20 +173,38 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 			return
 		}
 
-		session, err := s.sessionStore.Get(r, sessionName)
+		token, err := generateJWT(u)
 		if err != nil {
 			s.error(w, r, http.StatusInternalServerError, err)
 			return
 		}
-
-		session.Values["user_id"] = u.ID
-		if err := s.sessionStore.Save(r, w, session); err != nil {
-			s.error(w, r, http.StatusInternalServerError, err)
-			return
-		}
-
-		s.respond(w, r, http.StatusOK, nil)
+		w.Header().Set("Token", token)
+		s.respond(w, r, http.StatusOK, token)
 	}
+}
+
+func (s *server) validateToken(w http.ResponseWriter, r *http.Request) (*jwt.Token, error) {
+	if r.Header["Token"] == nil {
+		s.error(w, r, http.StatusBadRequest, errNotFoundHeader)
+		return nil, errNotFoundHeader
+	}
+
+	token, err := jwt.Parse(r.Header["Token"][0], func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("cannot parse")
+		}
+		return jwtKey, nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if token == nil {
+		return nil, errInvalidToken
+	}
+
+	return token, nil
 }
 
 func (s *server) handleWhoami() http.HandlerFunc {
