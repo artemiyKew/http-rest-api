@@ -14,17 +14,17 @@
 
 **Скопируйте проект**
 ```bash
-  git clone https://github.com/artemiyKew/http-rest-api.git
+git clone https://github.com/artemiyKew/http-rest-api.git
 ```
 
 **Перейдите в каталог проекта**
 ```bash
-  cd http-rest-api
+cd http-rest-api
 ```
 
 **Запустите сервер**
 ```bash
-  make compose
+make compose
 ```
 
 ## Examples
