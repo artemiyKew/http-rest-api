@@ -1,4 +1,4 @@
-
+[![forthebadge](https://forthebadge.com/images/featured/featured-built-with-love.svg)](https://forthebadge.com)
 # HTTP rest api
 Первый проект на golang
 
@@ -11,11 +11,10 @@
 - golang-migrate/migrate (для миграций БД)
 
 # Usage
-[![forthebadge](https://forthebadge.com/images/featured/featured-built-with-love.svg)](https://forthebadge.com)
 
 **Скопируйте проект**
 ```bash
-  git clone https://github.com/artemiyKew/json-rpc-lamoda.git
+  https://github.com/artemiyKew/http-rest-api.git
 ```
 
 **Перейдите в каталог проекта**
