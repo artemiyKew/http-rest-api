@@ -14,7 +14,7 @@
 
 **Скопируйте проект**
 ```bash
-  https://github.com/artemiyKew/http-rest-api.git
+  git clone https://github.com/artemiyKew/http-rest-api.git
 ```
 
 **Перейдите в каталог проекта**
