@@ -1,6 +1,5 @@
 
-[![forthebadge](https://forthebadge.com/images/featured/featured-built-with-love.svg)](https://forthebadge.com)
-# Http rest api
+# HTTP rest api
 Первый проект на golang
 
 Сервис простой авторизации
@@ -12,6 +11,7 @@
 - golang-migrate/migrate (для миграций БД)
 
 # Usage
+[![forthebadge](https://forthebadge.com/images/featured/featured-built-with-love.svg)](https://forthebadge.com)
 
 **Скопируйте проект**
 ```bash
@@ -29,11 +29,11 @@
 ```
 
 ## Examples
-- [Регистрация](#sign-up)
-- [Аутентификация](#sign-in)
-- [Получение данных о пользователе](#whoami)
+- [Регистрация](#регистрация)
+- [Аутентификация](#аутентификация)
+- [Получение данных о пользователе](#получение-данных-о-пользователе)
 
-## Регистрация {#sign-up}
+## Регистрация
 Регистрация пользователя: 
 
 ```bash
@@ -53,7 +53,7 @@ curl -X POST \
 }
 ```
 
-## Аутентификация {#sign-in}
+## Аутентификация
 Аутентификация пользователя:
 ```bash
 curl -X POST \
@@ -70,7 +70,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE1MzcyMjIsInN1YiI6Mn0.HkLT91Z
 
 ```
 
-## Получение данных о пользователе {#whoami}
+## Получение данных о пользователе
 Получение данных о пользователе:
 
 ```bash
