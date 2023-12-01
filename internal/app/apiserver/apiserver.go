@@ -26,6 +26,7 @@ func Start(config *Config) error {
 		return err
 	}
 	srv.logger = logger
+	logger.Sugar().Infof("start listenning port: %s", config.BindAddr)
 	return http.ListenAndServe(config.BindAddr, srv)
 }
 

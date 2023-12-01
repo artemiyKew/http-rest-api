@@ -24,11 +24,10 @@ const (
 )
 
 var (
-	jwtKey              = []byte("secret-key")
-	errNotAuthenticated = errors.New("not authenticated")
-	errNotFoundHeader   = errors.New("header not found")
-	errInvalidToken     = errors.New("invalid token")
-	errTokenExpired     = errors.New("token expired")
+	jwtKey            = []byte("secret-key")
+	errNotFoundHeader = errors.New("header not found")
+	errInvalidToken   = errors.New("invalid token")
+	errTokenExpired   = errors.New("token expired")
 )
 
 type ctxKey int8
@@ -62,8 +61,8 @@ func (s *server) configureRouter() {
 	s.router.Use(s.logRequest)
 	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"*"})))
 
-	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
-	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
+	s.router.HandleFunc("/sign-up", s.handleUsersCreate()).Methods("POST")
+	s.router.HandleFunc("/sign-in", s.handleSessionsCreate()).Methods("POST")
 
 	private := s.router.PathPrefix("/private").Subrouter()
 	private.Use(s.authUser)
@@ -160,7 +159,6 @@ func (s *server) handleSessionsCreate() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		// TODO переписать с cookie на jwt токен
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			s.error(w, r, http.StatusBadRequest, err)
@@ -220,6 +218,8 @@ func (s *server) error(w http.ResponseWriter, r *http.Request, code int, err err
 func (s *server) respond(w http.ResponseWriter, r *http.Request, code int, data interface{}) {
 	w.WriteHeader(code)
 	if data != nil {
-		json.NewEncoder(w).Encode(data)
+		if err := json.NewEncoder(w).Encode(data); err != nil {
+			return
+		}
 	}
 }

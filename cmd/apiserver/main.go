@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/BurntSushi/toml"
+	"github.com/artemiyKew/http-rest-api/internal/app"
 	"github.com/artemiyKew/http-rest-api/internal/app/apiserver"
 )
 
@@ -13,7 +14,8 @@ var (
 )
 
 func init() {
-	flag.StringVar(&configPath, "config-path", "configs/apiserver.toml", "path to config file")
+	flag.StringVar(&configPath, "config-path", "config/apiserver.toml", "path to config file")
+	app.Migrate()
 }
 
 func main() {
