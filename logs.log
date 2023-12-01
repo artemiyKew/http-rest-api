@@ -20,3 +20,82 @@
 {"level":"fatal","ts":"2023-10-18T23:38:49.409+0400","caller":"apiserver/apiserver.go:40","msg":"pq: database \"restapi_dev\" does not exist","stacktrace":"github.com/artemiyKew/http-rest-api/internal/app/apiserver.(*APIServer).Start\n\t/Users/artemiy/github.com/http-rest-api/internal/app/apiserver/apiserver.go:40\nmain.main\n\t/Users/artemiy/github.com/http-rest-api/cmd/apiserver/main.go:29\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:267"}
 {"level":"info","ts":"2023-10-18T23:41:21.571+0400","caller":"apiserver/apiserver.go:44","msg":"starting api server"}
 {"level":"info","ts":"2023-10-19T14:56:21.764+0400","caller":"apiserver/apiserver.go:44","msg":"starting api server"}
+{"level":"info","ts":"2023-10-25T00:20:33.663+0400","caller":"apiserver/server.go:72","msg":"started GET /private/whoami"}
+{"level":"info","ts":"2023-10-25T00:20:33.663+0400","caller":"apiserver/server.go:73","msg":"remote_add=[::1]:59478 request_id=80f1c1ec-81bc-4ade-be0a-fa88f8657c57"}
+{"level":"info","ts":"2023-10-25T00:20:33.665+0400","caller":"apiserver/server.go:79","msg":"completed in 1.690708ms"}
+{"level":"info","ts":"2023-10-25T00:21:01.811+0400","caller":"apiserver/server.go:72","msg":"started GET /private/whoami"}
+{"level":"info","ts":"2023-10-25T00:21:01.811+0400","caller":"apiserver/server.go:73","msg":"remote_add=[::1]:59483 request_id=20b315f5-73ca-44bb-a7c6-1b77f39cebf0"}
+{"level":"info","ts":"2023-10-25T00:21:01.812+0400","caller":"apiserver/server.go:79","msg":"completed in 567.959µs"}
+{"level":"info","ts":"2023-10-25T00:22:41.653+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59512 request_id=48e215e0-2020-477f-b246-9b92c93e82ee"}
+{"level":"info","ts":"2023-10-25T00:22:41.655+0400","caller":"apiserver/server.go:79","msg":"completed in 1.657292ms \t remote_addr=[::1]:59512 request_id=48e215e0-2020-477f-b246-9b92c93e82ee"}
+{"level":"info","ts":"2023-10-25T00:23:11.617+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59522 request_id=d2b74494-da93-4432-835b-36cc4b334733"}
+{"level":"info","ts":"2023-10-25T00:23:11.617+0400","caller":"apiserver/server.go:79","msg":"completed in 594.25µs \t remote_addr=[::1]:59522 request_id=d2b74494-da93-4432-835b-36cc4b334733"}
+{"level":"info","ts":"2023-10-25T00:24:25.580+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59544 request_id=4303813b-35fc-4d56-92a9-a33053eac5f1"}
+{"level":"info","ts":"2023-10-25T00:24:25.582+0400","caller":"apiserver/server.go:79","msg":"completed in 1.925958ms \t remote_addr=[::1]:59544 request_id=4303813b-35fc-4d56-92a9-a33053eac5f1"}
+{"level":"info","ts":"2023-10-25T00:31:54.058+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59643 request_id=49bbb389-5cea-4bb9-a4ee-2fd1afc3e7cd"}
+{"level":"info","ts":"2023-10-25T00:31:54.060+0400","caller":"apiserver/server.go:81","msg":"completed with 200 OK in 1.667583ms \t remote_addr=[::1]:59643 request_id=49bbb389-5cea-4bb9-a4ee-2fd1afc3e7cd"}
+{"level":"info","ts":"2023-10-25T00:32:29.469+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:59654 request_id=1e8725c3-82e9-4e1c-a38c-4e6c10eea692"}
+{"level":"info","ts":"2023-10-25T00:32:29.469+0400","caller":"apiserver/server.go:81","msg":"completed with 401 Unauthorized in 37.25µs \t remote_addr=[::1]:59654 request_id=1e8725c3-82e9-4e1c-a38c-4e6c10eea692"}
+{"level":"info","ts":"2023-10-25T10:40:14.871+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:50356 request_id=58816cac-1ad6-41bf-9fb3-afede0f96d2b"}
+{"level":"info","ts":"2023-10-25T10:40:14.872+0400","caller":"apiserver/server.go:81","msg":"completed with 401 Unauthorized in 93.209µs \t remote_addr=[::1]:50356 request_id=58816cac-1ad6-41bf-9fb3-afede0f96d2b"}
+{"level":"info","ts":"2023-10-25T10:41:09.194+0400","caller":"apiserver/server.go:74","msg":"started POST /users?email=kek@kek.lol&password=password \t remote_addr=[::1]:50356 request_id=586bfe53-37f4-4fb4-9efb-42ae182cf32c"}
+{"level":"info","ts":"2023-10-25T10:41:09.194+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 67.75µs \t remote_addr=[::1]:50356 request_id=586bfe53-37f4-4fb4-9efb-42ae182cf32c"}
+{"level":"info","ts":"2023-10-25T10:41:20.106+0400","caller":"apiserver/server.go:74","msg":"started POST /users?email=kek@kek.lol&password=password \t remote_addr=[::1]:50356 request_id=56000064-c19b-4b58-a1ae-583500de595e"}
+{"level":"info","ts":"2023-10-25T10:41:20.107+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 20.875µs \t remote_addr=[::1]:50356 request_id=56000064-c19b-4b58-a1ae-583500de595e"}
+{"level":"info","ts":"2023-10-25T10:41:59.194+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=46bc4ee5-0da3-40eb-98a6-f5f2196d2e2f"}
+{"level":"info","ts":"2023-10-25T10:41:59.195+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 35.541µs \t remote_addr=[::1]:50356 request_id=46bc4ee5-0da3-40eb-98a6-f5f2196d2e2f"}
+{"level":"info","ts":"2023-10-25T10:43:16.008+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=407ebfa5-eb78-4fe3-a014-40a9bedf5b5a"}
+{"level":"info","ts":"2023-10-25T10:43:16.009+0400","caller":"apiserver/server.go:81","msg":"completed with 422 Unprocessable Entity in 279.792µs \t remote_addr=[::1]:50356 request_id=407ebfa5-eb78-4fe3-a014-40a9bedf5b5a"}
+{"level":"info","ts":"2023-10-25T10:43:24.045+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=b4ccda09-ff4a-438f-b1b9-e07a5d5fb30b"}
+{"level":"info","ts":"2023-10-25T10:43:24.045+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 33.167µs \t remote_addr=[::1]:50356 request_id=b4ccda09-ff4a-438f-b1b9-e07a5d5fb30b"}
+{"level":"info","ts":"2023-10-25T10:43:34.377+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=f7c82c38-b6b6-4853-82f7-eca348fd3b81"}
+{"level":"info","ts":"2023-10-25T10:43:34.378+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 41.125µs \t remote_addr=[::1]:50356 request_id=f7c82c38-b6b6-4853-82f7-eca348fd3b81"}
+{"level":"info","ts":"2023-10-25T10:43:52.666+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=3e715ee7-6e35-43c0-beb7-abdbb3794243"}
+{"level":"info","ts":"2023-10-25T10:43:52.666+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 24.75µs \t remote_addr=[::1]:50356 request_id=3e715ee7-6e35-43c0-beb7-abdbb3794243"}
+{"level":"info","ts":"2023-10-25T10:43:58.961+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=75d7524b-fe76-4f85-a0a1-d388a5b61446"}
+{"level":"info","ts":"2023-10-25T10:43:58.962+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 22.75µs \t remote_addr=[::1]:50356 request_id=75d7524b-fe76-4f85-a0a1-d388a5b61446"}
+{"level":"info","ts":"2023-10-25T10:45:38.746+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=37b4b231-6bd2-4122-89cf-afd8c6b1b5b8"}
+{"level":"info","ts":"2023-10-25T10:45:38.746+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 26.416µs \t remote_addr=[::1]:50356 request_id=37b4b231-6bd2-4122-89cf-afd8c6b1b5b8"}
+{"level":"info","ts":"2023-10-25T10:46:01.075+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=29ad89fa-4cdd-4a1f-b451-aad9204ca3f7"}
+{"level":"info","ts":"2023-10-25T10:46:01.075+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 41.709µs \t remote_addr=[::1]:50356 request_id=29ad89fa-4cdd-4a1f-b451-aad9204ca3f7"}
+{"level":"info","ts":"2023-10-25T10:46:27.541+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=bc3c596b-86aa-46ae-8101-8c426c7dac7c"}
+{"level":"info","ts":"2023-10-25T10:46:27.541+0400","caller":"apiserver/server.go:81","msg":"completed with 400 Bad Request in 27.917µs \t remote_addr=[::1]:50356 request_id=bc3c596b-86aa-46ae-8101-8c426c7dac7c"}
+{"level":"info","ts":"2023-10-25T10:46:34.163+0400","caller":"apiserver/server.go:74","msg":"started POST /users \t remote_addr=[::1]:50356 request_id=7c633b63-4ebd-4c30-b3d4-db5c5b1b2b25"}
+{"level":"info","ts":"2023-10-25T10:46:34.168+0400","caller":"apiserver/server.go:81","msg":"completed with 201 Created in 4.698208ms \t remote_addr=[::1]:50356 request_id=7c633b63-4ebd-4c30-b3d4-db5c5b1b2b25"}
+{"level":"info","ts":"2023-10-25T10:46:47.238+0400","caller":"apiserver/server.go:74","msg":"started POST /sessions \t remote_addr=[::1]:50356 request_id=4b34c3e3-a1f9-49c3-b038-48c8ed14602f"}
+{"level":"info","ts":"2023-10-25T10:46:47.241+0400","caller":"apiserver/server.go:81","msg":"completed with 200 OK in 2.848417ms \t remote_addr=[::1]:50356 request_id=4b34c3e3-a1f9-49c3-b038-48c8ed14602f"}
+{"level":"info","ts":"2023-10-25T10:47:05.604+0400","caller":"apiserver/server.go:74","msg":"started GET /private/whoami \t remote_addr=[::1]:50356 request_id=2835c938-b343-4e09-b17a-198463e24c3d"}
+{"level":"info","ts":"2023-10-25T10:47:05.605+0400","caller":"apiserver/server.go:81","msg":"completed with 200 OK in 796.542µs \t remote_addr=[::1]:50356 request_id=2835c938-b343-4e09-b17a-198463e24c3d"}
+{"level":"info","ts":"2023-10-28T00:58:13.120+0400","caller":"apiserver/server.go:75","msg":"started POST /sessions \t remote_addr=[::1]:61523 request_id=7afe1ba5-3da5-4fcf-be25-9bb7b22a251b"}
+{"level":"info","ts":"2023-10-28T00:58:13.122+0400","caller":"apiserver/server.go:82","msg":"completed with 401 Unauthorized in 2.25375ms \t remote_addr=[::1]:61523 request_id=7afe1ba5-3da5-4fcf-be25-9bb7b22a251b"}
+{"level":"info","ts":"2023-10-28T00:58:44.373+0400","caller":"apiserver/server.go:75","msg":"started POST /users \t remote_addr=[::1]:61528 request_id=03701e0c-4736-4c3a-9409-003ff56214ac"}
+{"level":"info","ts":"2023-10-28T00:58:44.376+0400","caller":"apiserver/server.go:82","msg":"completed with 201 Created in 3.020292ms \t remote_addr=[::1]:61528 request_id=03701e0c-4736-4c3a-9409-003ff56214ac"}
+{"level":"info","ts":"2023-10-28T00:58:58.377+0400","caller":"apiserver/server.go:75","msg":"started POST /sessions \t remote_addr=[::1]:61530 request_id=e0a5ac15-db74-461f-8081-704c20051ca2"}
+{"level":"info","ts":"2023-10-28T00:58:58.379+0400","caller":"apiserver/server.go:82","msg":"completed with 500 Internal Server Error in 2.1215ms \t remote_addr=[::1]:61530 request_id=e0a5ac15-db74-461f-8081-704c20051ca2"}
+{"level":"info","ts":"2023-10-28T01:01:57.765+0400","caller":"apiserver/server.go:75","msg":"started POST /sessions \t remote_addr=[::1]:61556 request_id=66f50f86-eda7-4ba3-8cfe-62337fcdeca0"}
+{"level":"info","ts":"2023-10-28T01:01:57.769+0400","caller":"apiserver/server.go:82","msg":"completed with 500 Internal Server Error in 3.812291ms \t remote_addr=[::1]:61556 request_id=66f50f86-eda7-4ba3-8cfe-62337fcdeca0"}
+{"level":"info","ts":"2023-10-28T01:03:07.730+0400","caller":"apiserver/server.go:74","msg":"started POST /sessions \t remote_addr=[::1]:61570 request_id=eeca68ae-a389-4308-9c33-950a4185dd5a"}
+{"level":"info","ts":"2023-10-28T01:03:07.734+0400","caller":"apiserver/server.go:81","msg":"completed with 500 Internal Server Error in 3.461041ms \t remote_addr=[::1]:61570 request_id=eeca68ae-a389-4308-9c33-950a4185dd5a"}
+{"level":"info","ts":"2023-10-28T01:14:31.258+0400","caller":"apiserver/server.go:75","msg":"started POST /sessions \t remote_addr=[::1]:61919 request_id=0f6111b4-81a6-4568-9e49-8db238507316"}
+{"level":"info","ts":"2023-10-28T01:14:31.261+0400","caller":"apiserver/server.go:82","msg":"completed with 500 Internal Server Error in 3.728916ms \t remote_addr=[::1]:61919 request_id=0f6111b4-81a6-4568-9e49-8db238507316"}
+{"level":"info","ts":"2023-10-28T01:15:56.073+0400","caller":"apiserver/server.go:75","msg":"started POST /sessions \t remote_addr=[::1]:61943 request_id=5ef63c57-62e1-46c8-be9b-266396b6c2ac"}
+{"level":"info","ts":"2023-10-28T01:15:56.078+0400","caller":"apiserver/server.go:82","msg":"completed with 200 OK in 4.235167ms \t remote_addr=[::1]:61943 request_id=5ef63c57-62e1-46c8-be9b-266396b6c2ac"}
+{"level":"info","ts":"2023-10-28T01:17:46.747+0400","caller":"apiserver/server.go:75","msg":"started POST /sessions \t remote_addr=[::1]:62045 request_id=99ea228f-b229-4c98-9c44-3dec59ad197f"}
+{"level":"info","ts":"2023-10-28T01:17:46.750+0400","caller":"apiserver/server.go:82","msg":"completed with 200 OK in 2.268125ms \t remote_addr=[::1]:62045 request_id=99ea228f-b229-4c98-9c44-3dec59ad197f"}
+{"level":"info","ts":"2023-10-28T01:18:15.125+0400","caller":"apiserver/server.go:75","msg":"started GET /private/whoami \t remote_addr=[::1]:62045 request_id=b8d56302-3133-4787-ad29-305d980a48aa"}
+{"level":"info","ts":"2023-10-28T01:18:15.126+0400","caller":"apiserver/server.go:82","msg":"completed with 401 Unauthorized in 255.959µs \t remote_addr=[::1]:62045 request_id=b8d56302-3133-4787-ad29-305d980a48aa"}
+{"level":"info","ts":"2023-10-28T01:32:39.392+0400","caller":"apiserver/server.go:78","msg":"started POST /sessions \t remote_addr=[::1]:62394 request_id=0aa96603-e319-40d4-9920-7fbcc3a297de"}
+{"level":"info","ts":"2023-10-28T01:32:39.397+0400","caller":"apiserver/server.go:85","msg":"completed with 200 OK in 3.768417ms \t remote_addr=[::1]:62394 request_id=0aa96603-e319-40d4-9920-7fbcc3a297de"}
+{"level":"info","ts":"2023-10-28T01:35:43.628+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62394 request_id=5a352366-f9d0-4bab-9daf-6db5015261a2"}
+{"level":"info","ts":"2023-10-28T01:36:40.248+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62429 request_id=8e2651aa-ac07-4f3d-9fe6-438f9030332f"}
+{"level":"info","ts":"2023-10-28T01:36:47.622+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62432 request_id=ef0024a8-0c91-40a5-a3a3-36fd2f1d41fa"}
+{"level":"info","ts":"2023-10-28T01:37:27.424+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62452 request_id=51b44fe2-4418-49a4-bcb7-50dfba339866"}
+{"level":"info","ts":"2023-10-28T01:40:07.564+0400","caller":"apiserver/server.go:79","msg":"started POST /sessions \t remote_addr=[::1]:62477 request_id=1a0a58d9-a2af-440b-9731-364854df3ab0"}
+{"level":"info","ts":"2023-10-28T01:40:07.568+0400","caller":"apiserver/server.go:86","msg":"completed with 200 OK in 3.584292ms \t remote_addr=[::1]:62477 request_id=1a0a58d9-a2af-440b-9731-364854df3ab0"}
+{"level":"info","ts":"2023-10-28T01:40:26.164+0400","caller":"apiserver/server.go:79","msg":"started GET /private/whoami \t remote_addr=[::1]:62477 request_id=e93f8550-c00a-49a1-9e68-3ad8ab16703c"}
+{"level":"info","ts":"2023-10-28T01:43:29.357+0400","caller":"apiserver/server.go:79","msg":"started GET /private/whoami \t remote_addr=[::1]:62513 request_id=8956acbf-701d-4f3d-92fe-d39e74c23f3b"}
+{"level":"info","ts":"2023-10-28T01:44:17.802+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62523 request_id=a863d16c-4def-457d-b226-540619b50073"}
+{"level":"info","ts":"2023-10-28T01:47:11.567+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62542 request_id=18ea2b6c-6268-43fb-859d-5124f7a97235"}
+{"level":"info","ts":"2023-10-28T01:47:11.568+0400","caller":"apiserver/server.go:85","msg":"completed with 200 OK in 1.4535ms \t remote_addr=[::1]:62542 request_id=18ea2b6c-6268-43fb-859d-5124f7a97235"}
+{"level":"info","ts":"2023-10-28T01:49:46.189+0400","caller":"apiserver/server.go:78","msg":"started GET /private/whoami \t remote_addr=[::1]:62593 request_id=c1273a03-17e8-427f-8062-30f208a90658"}
+{"level":"info","ts":"2023-10-28T01:49:46.192+0400","caller":"apiserver/server.go:85","msg":"completed with 200 OK in 2.086667ms \t remote_addr=[::1]:62593 request_id=c1273a03-17e8-427f-8062-30f208a90658"}
